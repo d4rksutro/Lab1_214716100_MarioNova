@@ -133,3 +133,17 @@
           (jugador-get-posicion jugador)
           (jugador-get-esta-en-carcel jugador)
           (jugador-get-cartas-salir-carcel jugador))))
+
+
+(define jugador-pagar-renta
+  (lambda (jugador-pagador jugador-receptor monto)
+    (define dinero-pagador (jugador-get-dinero jugador-pagador))
+    (define dinero-receptor (jugador-get-dinero jugador-receptor))    
+    (if (>= dinero-pagador monto)
+        (let ([nuevo-dinero-pagador (- dinero-pagador monto)]
+              [nuevo-dinero-receptor (+ dinero-receptor monto)])
+          (list (jugador-set-dinero jugador-pagador nuevo-dinero-pagador)
+                (jugador-set-dinero jugador-receptor nuevo-dinero-receptor)))
+        (let ([monto-parcial dinero-pagador])
+          (list (jugador-set-dinero jugador-pagador 0)
+                (jugador-set-dinero jugador-receptor (+ dinero-receptor monto-parcial)))))))
