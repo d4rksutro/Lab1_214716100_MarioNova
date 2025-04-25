@@ -11,7 +11,7 @@
          tablero-set-cartas-comunidad
          tablero-set-casillas-especiales
          tablero-get-propiedad-en-posicion
-         tablero-agregar-propiedades)
+         tablero-agregar-propiedad)
 
 (define tablero
   (lambda (propiedades cartas-suerte cartas-comunidad casillas-especiales)
@@ -84,14 +84,8 @@
     (encontrar (tablero-get-propiedades tablero) posicion)))
 
 
-(define tablero-agregar-propiedades
-  (lambda (tablero propiedades-con-posicion)
-    (define agregar-rec
-      (lambda (props nuevas)
-        (if (null? nuevas)
-            props
-            (agregar-rec (cons (first nuevas) props) (rest nuevas)))))
-    
+(define tablero-agregar-propiedad
+  (lambda (tablero propiedad-con-posicion)
     (tablero-set-propiedades 
-      tablero 
-      (agregar-rec (tablero-get-propiedades tablero) propiedades-con-posicion))))
+     tablero 
+     (cons propiedad-con-posicion (tablero-get-propiedades tablero)))))

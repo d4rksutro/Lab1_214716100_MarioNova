@@ -19,7 +19,8 @@
          juego-set-estado-juego
          juego-agregar-jugador
          juego-obtener-jugador-actual
-         juego-lanzar-dados)
+         juego-lanzar-dados
+         juego-extraer-carta)
 
 
 
@@ -170,3 +171,25 @@
       (display "Resultado del segundo dado: ")
       (displayln dado2)
       (list dado1 dado2))))
+
+
+(define juego-extraer-carta
+  (lambda (juego tipoMazo)
+    (define semilla (juego-get-turno-actual juego))
+    
+    (define mazo 
+      (if (string=? tipoMazo "suerte")
+          (tablero-get-cartas-suerte (juego-get-tablero juego))
+          (tablero-get-cartas-comunidad (juego-get-tablero juego))))
+    
+    (if (null? mazo)
+        (cons juego null) 
+        (let* ([indice (modulo semilla (length mazo))]
+               [carta-extraida (list-ref mazo indice)]
+               [nuevo-mazo (append (take mazo indice) 
+                                  (drop mazo (+ indice 1)))]
+               [nuevo-tablero (if (string=? tipoMazo "suerte")
+                                  (tablero-set-cartas-suerte (juego-get-tablero juego) nuevo-mazo)
+                                  (tablero-set-cartas-comunidad (juego-get-tablero juego) nuevo-mazo))]
+               [nuevo-juego (juego-set-tablero juego nuevo-tablero)])
+          (cons nuevo-juego carta-extraida)))))
