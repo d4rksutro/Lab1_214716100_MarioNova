@@ -14,7 +14,9 @@
          propiedad-set-dueno
          propiedad-set-casas
          propiedad-set-es-hotel
-         propiedad-set-esta-hipotecada)
+         propiedad-set-esta-hipotecada
+         propiedad-calcular-renta
+         propiedad-hipotecar)
 
 
 (define propiedad
@@ -123,4 +125,27 @@
             [(= num-casas 3) (* renta-base 30)]
             [(= num-casas 4) (* renta-base 45)]
             [es-hotel (* renta-base 65)]
-            [else renta-base])))))  
+            [else renta-base])))))
+
+(define propiedad-calcular-renta
+  (lambda (propiedad)
+    (if (propiedad-get-esta-hipotecada propiedad)
+        0
+        (let ([renta-base (propiedad-get-renta propiedad)]
+              [num-casas (propiedad-get-casas propiedad)]
+              [es-hotel (propiedad-get-es-hotel propiedad)])
+          (cond
+            [(= num-casas 0) renta-base] 
+            [(= num-casas 1) (* renta-base 4)]
+            [(= num-casas 2) (* renta-base 12)]
+            [(= num-casas 3) (* renta-base 30)]
+            [(= num-casas 4) (* renta-base 45)]
+            [es-hotel (* renta-base 65)]
+            [else renta-base])))))   
+
+
+(define propiedad-hipotecar
+  (lambda (propiedad)
+    (if (not (propiedad-get-esta-hipotecada propiedad))
+        (propiedad-set-esta-hipotecada propiedad #t)
+        propiedad)))

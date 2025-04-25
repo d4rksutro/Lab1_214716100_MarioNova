@@ -15,7 +15,9 @@
          jugador-set-esta-en-carcel
          jugador-set-cartas-salir-carcel
          jugador-agregar-propiedad
-         jugador-quitar-propiedad)
+         jugador-quitar-propiedad
+         jugador-mover
+         jugador-comprar-propiedad)
 
 (define jugador
   (lambda (id nombre dinero propiedades posicion estaEnCarcel totalCartasSalirCarcel)
@@ -147,3 +149,33 @@
         (let ([monto-parcial dinero-pagador])
           (list (jugador-set-dinero jugador-pagador 0)
                 (jugador-set-dinero jugador-receptor (+ dinero-receptor monto-parcial)))))))
+
+
+
+(define jugador-mover
+  (lambda (jugador valoresDados juego)
+    (define posicion-actual (jugador-get-posicion jugador))
+    
+    (define suma-dados (+ (first valoresDados) (second valoresDados)))
+
+    (define nueva-posicion (remainder (+ posicion-actual suma-dados) 40))
+
+    (define pasa-por-salida 
+      (and (> (+ posicion-actual suma-dados) 39) (not (= posicion-actual 0))))
+
+    (define jugador-actualizado 
+      (if pasa-por-salida
+          (jugador-set-dinero jugador (+ (jugador-get-dinero jugador) 200))
+          jugador))
+    (jugador-set-posicion jugador-actualizado nueva-posicion)))
+
+
+(define jugador-comprar-propiedad
+  (lambda (jugador propiedad)
+    (define precio (propiedad-get-precio propiedad))
+    (define dinero-actual (jugador-get-dinero jugador))
+    
+    (if (>= dinero-actual precio)
+        (let ([jugador-con-menos-dinero (jugador-set-dinero jugador (- dinero-actual precio))])
+          (jugador-agregar-propiedad jugador-con-menos-dinero (propiedad-get-id propiedad)))
+        jugador)))
