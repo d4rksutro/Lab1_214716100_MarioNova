@@ -15,7 +15,9 @@
          propiedad-set-es-hotel
          propiedad-set-esta-hipotecada
          propiedad-calcular-renta
-         propiedad-hipotecar)
+         propiedad-hipotecar
+         propiedad-construir-casa
+         propiedad-construir-hotel)
 
 ; Descripción: Construir el TDA Propiedad
 ; Dom: id (int) X nombre (string) X precio (int) X renta (int) X dueno (id_jugador/null) X casas (int) X esHotel (boolean) X estaHipotecada (boolean)
@@ -179,4 +181,32 @@
   (lambda (propiedad)
     (if (not (propiedad-get-esta-hipotecada propiedad))
         (propiedad-set-esta-hipotecada propiedad #t)
+        propiedad)))
+
+
+; Descripción: Construye una casa en la propiedad
+; Dom: propiedad (propiedad) X juego (juego)
+; Rec: propiedad
+; Tipo recursión: No aplica
+(define propiedad-construir-casa
+  (lambda (propiedad juego)
+    (define max-casas (seventh juego))
+    
+    (if (or (propiedad-get-es-hotel propiedad)
+            (>= (propiedad-get-casas propiedad) max-casas))
+        propiedad
+        (propiedad-set-casas propiedad (+ (propiedad-get-casas propiedad) 1)))))
+
+
+; Descripción: Construye un hotel en la propiedad
+; Dom: propiedad (propiedad) X juego (juego)
+; Rec: propiedad
+; Tipo recursión: No aplica
+(define propiedad-construir-hotel
+  (lambda (propiedad juego)
+    (define max-casas (seventh juego))
+    (if (and (= (propiedad-get-casas propiedad) max-casas)
+             (not (propiedad-get-es-hotel propiedad)))
+        (let ([prop-con-hotel (propiedad-set-es-hotel propiedad #t)])
+          (propiedad-set-casas prop-con-hotel 0))
         propiedad)))

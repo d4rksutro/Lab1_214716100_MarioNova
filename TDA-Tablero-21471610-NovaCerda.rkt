@@ -119,12 +119,23 @@
     
     (encontrar (tablero-get-propiedades tablero) posicion)))
 
-; Descripción: Agregar una propiedad con su posición al tablero
-; Dom: tablero (tablero) X propiedad-con-posicion (par (propiedad . posicion))
-; Rec: tablero
-; Tipo recursión: No aplica
-(define tablero-agregar-propiedad
-  (lambda (tablero propiedad-con-posicion)
-    (tablero-set-propiedades 
-     tablero 
-     (cons propiedad-con-posicion (tablero-get-propiedades tablero)))))
+
+; RF07. TDA Tablero - modificador - Agregar propiedad.  
+; Dom:    tablero (tablero)  
+;         propiedades con posición (lista de pares (propiedad . posición))  
+; Rec:    tablero  
+; Recursión: cola
+
+(define (tablero-agregar-propiedad t lista-propiedades)
+  (if (null? lista-propiedades)
+      t
+      (let* ([par          (car lista-propiedades)]      ; un par (prop . pos)
+             [props-vec   (tablero-get-propiedades t)]        ; lista actual de propiedades
+             [props-nuev  (cons par props-vec)]          ; añadimos al front
+             [t2          (tablero                        ; reconstruimos el tablero
+                            props-nuev
+                            (tablero-get-cartas-suerte t)
+                            (tablero-get-cartas-comunidad t)
+                            (tablero-get-casillas-especiales t))])
+        (tablero-agregar-propiedad t2 (cdr lista-propiedades)))))
+

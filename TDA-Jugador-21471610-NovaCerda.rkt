@@ -18,7 +18,8 @@
          jugador-mover
          jugador-comprar-propiedad
          jugador-pagar-renta
-         jugador-esta-en-bancarrota)
+         jugador-esta-en-bancarrota
+         jugador-calcular-renta)
 
 
 (require "TDA-Propiedad.rkt")
@@ -259,3 +260,41 @@
           (car deuda-opcional)))
     
     (< (jugador-get-dinero jugador) deuda)))
+
+
+; Descripción: Calcula la renta total para un jugador
+; Dom: jugador (jugador) X juego (TDA Juego)
+; Rec: int (monto de la renta)
+; Tipo recursión: Natural
+(define jugador-calcular-renta
+  (lambda (jugador juego)
+    (define tablero (second juego))
+    (define ids-propiedades (jugador-get-propiedades jugador))
+    
+    (define calcular-renta-total
+      (lambda (ids)
+        (if (null? ids)
+            0
+            (let* ([prop-id (first ids)]
+                  [propiedad (obtener-propiedad-por-id tablero prop-id)])
+              (if propiedad
+                  (+ (propiedad-calcular-renta propiedad) 
+                     (calcular-renta-total (rest ids)))
+                  (calcular-renta-total (rest ids)))))))
+    
+    (define obtener-propiedad-por-id
+      (lambda (tablero id)
+        (let ([propiedades (first tablero)])
+          (buscar-propiedad propiedades id))))
+    
+    (define buscar-propiedad
+      (lambda (propiedades id)
+        (if (null? propiedades)
+            #f
+            (let* ([par-prop (first propiedades)]
+                  [prop (car par-prop)])
+              (if (= (propiedad-get-id prop) id)
+                  prop
+                  (buscar-propiedad (rest propiedades) id))))))
+    
+    (calcular-renta-total ids-propiedades)))
