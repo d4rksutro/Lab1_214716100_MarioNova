@@ -1,0 +1,29 @@
+Auto evaluacion
+Puntajes:
+1 = logrado exitosamente
+0,75 = Pocos fallos
+0,5 = Parcialmente completado
+0,25 = Muchas fallas
+0 = No hecho/logrado
+
+RF1 - TDAS: 
+RF2 - TDA Jugador - constructor: 
+RF3 - TDA Propiedad - constructor: 
+RF4 - TDA Carta - constructor:
+RF5 - TDA Tablero - constructor: 
+RF6 - TDA Juego - constructor:
+RF7 - TDA Tablero - modificador - Agregar propiedad:
+RF8 - TDA Juego - modificador - Agregar jugador:
+RF9 - TDA Juego - selector - obtener jugador actual:
+RF10- TDA juego - otros - lanzar dados:
+RF11- TDA Jugador - modificador - Mover Jugador:
+RF12- TDA Jugador - modificador - Comprar propiedad:
+RF13- TDA Jugador - otros - Calcular Renta:
+RF14- TDA Propiedad - otros - Calcular Renta:
+RF15- TDA Propiedad- modificador -Construir Casa:
+RF16- TDA Propiedad- modificador -Construir Hotel:
+RF17- TDA Jugador - otros - Pagar Renta:
+RF18- TDA Propiedad - modificador - Hipotecar Propiedad:
+RF19- TDA Juego - modificador -Extraer carta:
+RF20- TDA Jugador - otros - Verificar bancarrota:
+RF21- TDA Juego - modificador - Realizar turno:
