@@ -125,14 +125,13 @@
 ;         propiedades con posición (lista de pares (propiedad . posición))  
 ; Rec:    tablero  
 ; Recursión: cola
-
 (define (tablero-agregar-propiedad t lista-propiedades)
   (if (null? lista-propiedades)
       t
-      (let* ([par          (car lista-propiedades)]      ; un par (prop . pos)
-             [props-vec   (tablero-get-propiedades t)]        ; lista actual de propiedades
-             [props-nuev  (cons par props-vec)]          ; añadimos al front
-             [t2          (tablero                        ; reconstruimos el tablero
+      (let* ([par          (car lista-propiedades)]   
+             [props-vec   (tablero-get-propiedades t)]
+             [props-nuev  (cons par props-vec)]       
+             [t2          (tablero                    
                             props-nuev
                             (tablero-get-cartas-suerte t)
                             (tablero-get-cartas-comunidad t)

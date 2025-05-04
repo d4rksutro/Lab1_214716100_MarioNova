@@ -1,9 +1,9 @@
 #lang racket
 
-(require "TDA-Jugador.rkt"
-         "TDA-Tablero.rkt"
-         "TDA-Propiedad.rkt"
-         "TDA-Carta.rkt")
+(require "TDA-Jugador-21471610-NovaCerda.rkt"
+         "TDA-Tablero-21471610-NovaCerda.rkt"
+         "TDA-Propiedad-21471610-NovaCerda.rkt"
+         "TDA-Carta-21471610-NovaCerda.rkt")
 
 (provide juego
          juego?

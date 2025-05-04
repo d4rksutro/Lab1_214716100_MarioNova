@@ -1,11 +1,11 @@
 #lang racket
 
 
-(require "TDA-Carta.rkt"
-         "TDA-Juego.rkt"
-         "TDA-Jugador.rkt"
-         "TDA-Propiedad.rkt"
-         "TDA-Tablero.rkt")
+(require "TDA-Carta-21471610-NovaCerda.rkt"
+         "TDA-Juego-21471610-NovaCerda.rkt"
+         "TDA-Jugador-21471610-NovaCerda.rkt"
+         "TDA-Propiedad-21471610-NovaCerda.rkt"
+         "TDA-Tablero-21471610-NovaCerda.rkt")
 
 (provide 
  ; TDA Carta

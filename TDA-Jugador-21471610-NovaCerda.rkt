@@ -22,7 +22,7 @@
          jugador-calcular-renta)
 
 
-(require "TDA-Propiedad.rkt")
+(require "TDA-Propiedad-21471610-NovaCerda.rkt")
 
 ; Descripción: Construir el TDA Jugador
 ; Dom: id (int) X nombre (string) X dinero (int) X propiedades (list de ids) X posicion (int) X estaEnCarcel (boolean) X totalCartasSalirCarcel (int)
